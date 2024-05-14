@@ -11,7 +11,7 @@ ModelBaseResponse<T> _$ModelBaseResponseFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) =>
     ModelBaseResponse<T>(
-      json['status'] as int,
+      (json['status'] as num).toInt(),
       json['message'] as String?,
       _$nullableGenericFromJson(json['data'], fromJsonT),
       json['meta'] == null
@@ -43,11 +43,11 @@ Object? _$nullableGenericToJson<T>(
     input == null ? null : toJson(input);
 
 Meta _$MetaFromJson(Map<String, dynamic> json) => Meta(
-      total: json['total'] as int?,
-      totalPage: json['totalPage'] as int?,
+      total: (json['total'] as num?)?.toInt(),
+      totalPage: (json['totalPage'] as num?)?.toInt(),
       search: json['search'] as String?,
-      page: json['page'] as int?,
-      limit: json['limit'] as int?,
+      page: (json['page'] as num?)?.toInt(),
+      limit: (json['limit'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$MetaToJson(Meta instance) => <String, dynamic>{
