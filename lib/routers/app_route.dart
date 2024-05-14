@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:superbase_flutter/presentation/auth/view/login_screen.dart';
+import 'package:superbase_flutter/presentation/splash/splash_screen.dart';
+import 'package:superbase_flutter/theme/theme.dart';
 
 // ScrollToHideController hideController = ScrollToHideController();
 
@@ -17,23 +19,22 @@ class StatefulShellRouteApp extends StatelessWidget {
       // },
       // initialLocation: SplashScreen.path,
       routes: <RouteBase>[
-        // GoRoute(
-        //   path: '/',
-        //   builder: (BuildContext context, GoRouterState state) {
-        //     return const SplashScreen();
-        //   },
-        //   // routes: <RouteBase>[
-        //   //   GoRoute(
-        //   //     path: 'detailLogin',
-        //   //     builder: (BuildContext context, GoRouterState state) {
-        //   //       return const DetailLoginScreen();
-        //   //     },
-        //   //   ),
-        //   // ],
-        // ),
         GoRoute(
           path: '/',
-          //  LoginScreen.path,
+          builder: (BuildContext context, GoRouterState state) {
+            return const SplashScreen();
+          },
+          // routes: <RouteBase>[
+          //   GoRoute(
+          //     path: 'detailLogin',
+          //     builder: (BuildContext context, GoRouterState state) {
+          //       return const DetailLoginScreen();
+          //     },
+          //   ),
+          // ],
+        ),
+        GoRoute(
+          path: LoginScreen.path,
           name: LoginScreen.routeName,
           builder: (BuildContext context, GoRouterState state) {
             return LoginScreen();
@@ -118,7 +119,7 @@ class StatefulShellRouteApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      // theme: appThemeData,
+      theme: appThemeData,
       // ThemeData(
       //   useMaterial3: true,
       //   primaryColor: ColorConstants.instance.onPrimary,

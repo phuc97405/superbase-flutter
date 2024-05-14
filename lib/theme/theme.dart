@@ -1,4 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:vivid_flutter/src/core/constants/color_constant.dart';
+import 'package:superbase_flutter/core/constants/color_constant.dart';
 
-// part 'app_theme.dart';
+part 'app_theme.dart';

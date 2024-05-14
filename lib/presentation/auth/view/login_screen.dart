@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:superbase_flutter/presentation/auth/cubit/auth_cubit.dart';
 import 'package:superbase_flutter/presentation/auth/view/components/button_social.dart';
 import 'package:superbase_flutter/presentation/auth/view/models/social_model.dart';
 
@@ -43,6 +45,7 @@ class LoginScreen extends StatelessWidget {
         // context.read<AuthBloc>().add(LoginWithApple());
         break;
       case 'ic_kakao':
+        context.read<AuthCubit>().loginWithKaKao();
         // context.read<AuthBloc>().add(LoginWithKaKao());
         break;
       case 'ic_gg':
@@ -69,56 +72,29 @@ class LoginScreen extends StatelessWidget {
         //   onTap: () => context.pop(),
         // ),
         body: Center(
-      child: Column(children: [
-        Flexible(
-            flex: 2,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                // Image.asset(
-                //   'logo'.toPng,
-                //   width: 105.09,
-                //   height: 100,
-                //   fit: BoxFit.contain,
-                // ),
-                // RichText(
-                //     text: TextSpan(
-                //         text: '조건없는 광고',
-                //         style: context.textTheme.text_xlB,
-                //         children: const [
-                //       TextSpan(
-                //           text: '를 한눈에 확인하자!',
-                //           style: TextStyle(
-                //               color: Colors.black,
-                //               fontWeight: FontWeight.w400))
-                //     ]))
-              ],
-            )),
-        Flexible(
-            flex: 3,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  ...List.generate(
-                      listLoginSocial.length,
-                      (index) => !Platform.isIOS && index == 1
-                          ? Container()
-                          // 0.ph
-                          : ButtonSocial(
-                              onTap: () {
-                                handleSocial(
-                                    context, listLoginSocial[index].img);
-                              },
-                              mgB: true,
-                              label: listLoginSocial[index].title,
-                              icon: listLoginSocial[index].img,
-                              bg: listLoginSocial[index].bg,
-                              textColor: listLoginSocial[index].textColor,
-                            ))
-                ],
-              ),
-            )),
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              ...List.generate(
+                  listLoginSocial.length,
+                  (index) => !Platform.isIOS && index == 1
+                      ? Container()
+                      // 0.ph
+                      : ButtonSocial(
+                          onTap: () {
+                            handleSocial(context, listLoginSocial[index].img);
+                          },
+                          mgB: true,
+                          label: listLoginSocial[index].title,
+                          icon: listLoginSocial[index].img,
+                          bg: listLoginSocial[index].bg,
+                          textColor: listLoginSocial[index].textColor,
+                        ))
+            ],
+          ),
+        )
         // BlocConsumer<AuthBloc, AuthState>(
         //   listener: (context, state) {
         //     if (state.status == AuthStatus.loading) {
