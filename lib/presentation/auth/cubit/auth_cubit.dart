@@ -13,13 +13,21 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit() : super(const AuthState.init());
 
-  // void createDeviceToken(CreateUserPayload payload) async {
-  //   (await createDeviceNotifyUseCase.call(payload)).when(
-  //       success: (data, _) =>
-  //           {print('Created device token successfully $data')},
-  //       error: (type, msg) => print('Created device token error: $msg'));
-  //   final resMapper = await createDeviceNotifyUseCase.userMapper(payload);
-  // }
+  // on<AuthStarted>((event, emit) async {
+  //     try {
+  //       if (await authCacheManager.isLoggedIn()) {
+  //         await authCacheManager.loadTokenFromStorage();
+  //         String userId = await authCacheManager.getUserId();
+  //         (await userAPI.getProfile(userId)).when(success: (data, _) async {
+  //           emit(AuthState.authenticated(user: data));
+  //         }, error: (type, message) async {
+  //           emit(AuthState.authenticated(messError: message));
+  //         });
+  //       }
+  //     } catch (e) {
+  //       emit(const AuthState.authenticated(messError: 'AuthStarted Error'));
+  //     }
+  //   });
 
   void loginWithKaKao() async {
     try {

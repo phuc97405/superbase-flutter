@@ -12,15 +12,4 @@ class CreateUserUseCase {
 
   Future<Result<CreateUserResponse?>> call(CreateUserPayload payload) async =>
       await authRepository.createUser(payload);
-
-  Future<String?> userMapper(CreateUserPayload payload) async {
-    final res = await authRepository.createUser(payload);
-    return res.when(success: (data, _) => data?.user?.name ?? 'hello');
-  }
 }
-
-// mixin CreateUserMapper on CreateUserUseCase {
-//   String userMapper(CreateUserResponse user) {
-//     return user.user?.name ?? 'hello';
-//   }
-// }
