@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:superbase_flutter/data/models/payload/create_user_payload.dart';
-import 'package:superbase_flutter/domain/repositories/auth_repository.dart';
+import 'package:superbase_flutter/domain/repositories/auth_repository_impl.dart';
 
 @injectable
 class CreateUserUseCase {

@@ -1,5 +1,5 @@
-// import 'package:vivid_flutter/src/core/networking/model_base_response.dart'
-//     as MT;
+import 'package:superbase_flutter/core/networking/model_base_response.dart'
+    as MT;
 
 import 'error_type.dart';
 
@@ -13,9 +13,8 @@ class Result<T> with SealedResult<T> {
 
 class Success<T> extends Result<T> {
   T? data;
-  Success(
-    this.data,
-  );
+  MT.Meta? meta;
+  Success(this.data, this.meta);
 }
 
 // class SuccessLoadMore<T> extends ResultLoadMore<T> {
@@ -38,13 +37,12 @@ class Error<T> extends Result<T> {
   */
 mixin class SealedResult<T> {
   R? when<R>({
-    R Function(T?)? success,
+    R Function(T?, MT.Meta?)? success,
     R Function(ErrorType, String)? error,
   }) {
     if (this is Success<T?>) {
       return success?.call(
-        (this as Success<T>).data,
-      );
+          (this as Success<T>).data, (this as Success<T>).meta);
     }
     if (this is Error<T>) {
       return error?.call((this as Error<T>).type, (this as Error<T>).message);

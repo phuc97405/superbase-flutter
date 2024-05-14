@@ -33,9 +33,7 @@ abstract class BaseRepository {
       var response = await call;
       if (response.isSuccess()) {
         await saveResult?.call(response.data, response.meta);
-        return Success(
-          response.data,
-        );
+        return Success(response.data, response.meta);
       } else if (response.isFirstLoginSNS()) {
         // logger.d('isFirstLoginSNS');
         return Error(
