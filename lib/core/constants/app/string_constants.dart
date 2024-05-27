@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:superbase_flutter/core/constants/enums/language.enum.dart';
 
 @immutable
 class StringConstants {
@@ -33,3 +34,10 @@ class StringConstants {
   static const String makeSureCorrectMail =
       "Please make sure you enter the correct email.";
 }
+
+const List<Locale> supportedLocales = [
+  Locale(LanguageEnum.english, ''),
+  Locale(LanguageEnum.vietnam, ''),
+];
+
+const Locale fallbackLocale = Locale(LanguageEnum.english, '');

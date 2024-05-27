@@ -11,6 +11,7 @@ import 'package:superbase_flutter/routers/app_route.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   Configurations()
       .setConfigurationValues(kReleaseMode ? environmentProd : environmentDev);
   await configureDependencies(

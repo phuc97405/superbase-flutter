@@ -32,11 +32,11 @@ class AuthCubit extends Cubit<AuthState> {
   void loginWithKaKao() async {
     try {
       emit(const AuthState.authenticated(status: AuthStatus.loading));
-      bool talkInstalled = await isKakaoTalkInstalled();
-      OAuthToken token = talkInstalled
-          ? await UserApi.instance.loginWithKakaoTalk()
-          : await UserApi.instance.loginWithKakaoAccount();
-      await handleCallApiWithSocial(token.accessToken, 'KAKAO');
+      // bool talkInstalled = await isKakaoTalkInstalled();
+      // OAuthToken token = talkInstalled
+      //     ? await UserApi.instance.loginWithKakaoTalk()
+      //     : await UserApi.instance.loginWithKakaoAccount();
+      await handleCallApiWithSocial("token.accessToken", 'KAKAO');
     } catch (e) {
       emit(const AuthState.authenticated(messError: 'Login KaKao Error'));
     }
@@ -63,8 +63,8 @@ class AuthCubit extends Cubit<AuthState> {
         //     accessToken: accessToken,
         //     method: method.name));
       } else {
-        // emit(const AuthState.authenticated(
-        //     messError: 'An error occurred, please try again'));
+        emit(const AuthState.authenticated(
+            messError: 'An error occurred, please try again'));
       }
     });
   }

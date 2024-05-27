@@ -1,13 +1,31 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:superbase_flutter/core/constants/app/string_constants.dart';
+import 'package:superbase_flutter/core/constants/enums/auth_enums.dart';
+import 'package:superbase_flutter/core/constants/enums/language.enum.dart';
+import 'package:superbase_flutter/core/extensions/num_extensions.dart';
+import 'package:superbase_flutter/generated/app_localizations.dart';
+import 'package:superbase_flutter/generated/locales.g.dart';
 import 'package:superbase_flutter/presentation/auth/cubit/auth_cubit.dart';
 import 'package:superbase_flutter/presentation/auth/view/components/button_social.dart';
 import 'package:superbase_flutter/presentation/auth/view/models/social_model.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   static String routeName = 'login_screen';
   static String path = '/login_screen';
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  // final FlutterLocalization _localization = FlutterLocalization.instance;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   final List<SocialModel> listLoginSocial = [
     SocialModel(
@@ -39,6 +57,7 @@ class LoginScreen extends StatelessWidget {
   void handleSocial(BuildContext context, String type) {
     switch (type) {
       case 'ic_naver':
+        // localization.translate('en');
         // context.read<AuthBloc>().add(LoginWithNaVer());
         break;
       case 'ic_apple':
@@ -94,65 +113,74 @@ class LoginScreen extends StatelessWidget {
                         ))
             ],
           ),
-        )
-        // BlocConsumer<AuthBloc, AuthState>(
-        //   listener: (context, state) {
-        //     if (state.status == AuthStatus.loading) {
-        //       showDialogView(
-        //           context: context,
-        //           content: Row(
-        //             children: [
-        //               const CircularProgressIndicator(),
-        //               Container(
-        //                   margin: const EdgeInsets.only(left: 7),
-        //                   child: const Text("Loading...")),
-        //             ],
-        //           ));
-        //     }
-        //     if (state.messError != null &&
-        //         state.messError?.isNotEmpty == true) {
-        //       Navigator.pop(context);
-        //       // if (state.messError != null) {
-        //       showDialog(
-        //           barrierDismissible: false,
-        //           context: context,
-        //           builder: (BuildContext context) {
-        //             return AlertDialog(
-        //               content: Row(
-        //                 children: [
-        //                   Container(
-        //                       margin: const EdgeInsets.only(left: 7),
-        //                       child: Text(state.messError ?? '')),
-        //                 ],
-        //               ),
-        //               actions: [
-        //                 GestureDetector(
-        //                   child: const Text("Ok"),
-        //                   onTap: () {
-        //                     Navigator.pop(context);
-        //                   },
-        //                 ),
-        //               ],
-        //             );
-        //           });
-        //       return;
-        //     }
-        // if (state.status == AuthStatus.authenticated) {
-        //   Navigator.pop(context);
-        //   context.go(HomeScreen.path);
-        // }
-        // if (state.status == AuthStatus.notRegistered) {
-        //   Navigator.pop(context);
-        //   context.pushNamed(VerificationScreen.routeName,
-        //       pathParameters: {
-        //         'accessToken': state.accessToken ?? '',
-        //         'method': state.method ?? ''
-        //       });
-        // }
-        // },
-        // listenWhen: (previous, current) => true,
-        // builder: (BuildContext context, AuthState state) => 0.ph,
-        // )
+        ),
+        BlocConsumer<AuthCubit, AuthState>(
+          listener: (context, state) {
+            if (state.status == AuthStatus.loading) {
+              showDialogView(
+                  context: context,
+                  content: Row(
+                    children: [
+                      const CircularProgressIndicator(),
+                      Container(
+                          margin: const EdgeInsets.only(left: 7),
+                          child: const Text("Loading...")),
+                    ],
+                  ));
+            }
+
+            if (state.messError != null &&
+                state.messError?.isNotEmpty == true) {
+              Navigator.pop(context);
+              // if (state.messError != null) {
+              showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content: Row(
+                        children: [
+                          Container(
+                              margin: const EdgeInsets.only(left: 7),
+                              child: Text(state.messError ?? '')),
+                        ],
+                      ),
+                      actions: [
+                        GestureDetector(
+                          child: const Text("Ok"),
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    );
+                  });
+              return;
+            }
+            // if (state.status == AuthStatus.authenticated) {
+            //   Navigator.pop(context);
+            //   context.go(HomeScreen.path);
+            // }
+            // if (state.status == AuthStatus.notRegistered) {
+            //   Navigator.pop(context);
+            //   context.pushNamed(VerificationScreen.routeName,
+            //       pathParameters: {
+            //         'accessToken': state.accessToken ?? '',
+            //         'method': state.method ?? ''
+            //       });
+            // }
+            // },
+          },
+          builder: (BuildContext context, AuthState state) => 0.ph,
+        ),
+        Builder(builder: (context) {
+          return GestureDetector(
+            onTap: () => {},
+            child: Text(AppLocalizations.of(context)
+                    ?.translate(LocaleKeys.buttons_sign_in) ??
+                ''),
+          );
+        })
       ]),
     ));
   }

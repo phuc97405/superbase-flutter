@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:superbase_flutter/core/constants/app/string_constants.dart';
+import 'package:superbase_flutter/core/constants/enums/language.enum.dart';
+import 'package:superbase_flutter/generated/app_localizations.dart';
 import 'package:superbase_flutter/presentation/auth/view/login_screen.dart';
 import 'package:superbase_flutter/presentation/splash/splash_screen.dart';
 import 'package:superbase_flutter/theme/theme.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 // ScrollToHideController hideController = ScrollToHideController();
 
-class StatefulShellRouteApp extends StatelessWidget {
+class StatefulShellRouteApp extends StatefulWidget {
   StatefulShellRouteApp({super.key});
+
+  @override
+  State<StatefulShellRouteApp> createState() => _StatefulShellRouteAppState();
+}
+
+class _StatefulShellRouteAppState extends State<StatefulShellRouteApp> {
   final GoRouter _router = GoRouter(
       // redirect: (BuildContext context, GoRouterState state) {
       //   inspect(state);
@@ -49,77 +59,31 @@ class StatefulShellRouteApp extends StatelessWidget {
           // ],
         )
       ]);
-  //     StatefulShellRoute.indexedStack(
-  //       builder: (BuildContext context, GoRouterState state,
-  //           StatefulNavigationShell navigationShell) {
-  //         return ScaffoldBottomNavigationBar(
-  //           navigationShell: navigationShell,
-  //           hideController: scrollToHideController,
-  //         );
-  //       },
-  //       branches: <StatefulShellBranch>[
-  //         StatefulShellBranch(
-  //           routes: <RouteBase>[
-  //             GoRoute(
-  //               path: HomeScreen.path,
-  //               builder: (BuildContext context, GoRouterState state) {
-  //                 return MultiBlocProvider(
-  //                   providers: [
-  //                     BlocProvider<HomeBloc>(
-  //                       create: (BuildContext context) => HomeBloc(),
-  //                     ),
-  //                     BlocProvider<CategoryBloc>(
-  //                       create: (BuildContext context) => CategoryBloc(),
-  //                     ),
-  //                   ],
-  //                   child: HomeScreen(
-  //                     hideBottomTabController: scrollToHideController,
-  //                   ),
-  //                 );
-  //               },
-  //               // routes: <RouteBase>[
-  //               //   GoRoute(
-  //               //     path: 'details',
-  //               //     builder: (BuildContext context, GoRouterState state) {
-  //               //       return const DetailsScreen(label: 'A');
-  //               //     },
-  //               //   ),
-  //               // ],
-  //             ),
-  //           ],
-  //         ),
-  //         StatefulShellBranch(
-  //           routes: <RouteBase>[
-  //             GoRoute(
-  //               path: GiftShopScreen.path,
-  //               builder: (BuildContext context, GoRouterState state) {
-  //                 return BlocProvider(
-  //                   create: (context) => GSBloc(),
-  //                   child: GiftShopScreen(
-  //                     hideBottomTabController: scrollToHideController,
-  //                   ),
-  //                 );
-  //               },
-  //               // routes: <RouteBase>[
-  //               //   GoRoute(
-  //               //     path: 'details',
-  //               //     builder: (BuildContext context, GoRouterState state) {
-  //               //       return const DetailsScreen(label: 'B');
-  //               //     },
-  //               //   ),
-  //               // ],
-  //             ),
-  //           ],
-  //         ),
 
-  //   ],
-  // );
+  //     StatefulShellRoute.indexedStack(
+  Locale _locale = const Locale(LanguageEnum.english, '');
+
+  @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 5),
+        () => _locale = const Locale(LanguageEnum.vietnam, ''));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: appThemeData,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: supportedLocales,
+      locale: _locale,
+      //  fallbackLocale, //initialize locale
       // ThemeData(
       //   useMaterial3: true,
       //   primaryColor: ColorConstants.instance.onPrimary,

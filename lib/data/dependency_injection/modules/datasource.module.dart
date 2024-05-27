@@ -38,7 +38,7 @@ class AppCoreFactory {
         receiveTimeout: const Duration(seconds: 30),
         headers: {
           'accept': '*/*',
-          'content-type:': 'application/json',
+          // "content-type:": "application/json",
         },
       ), /*  */
     )..interceptors.add(
@@ -91,7 +91,7 @@ class ApiTokenInterceptor extends InterceptorsWrapper {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
-      await refreshToken(err, handler);
+      // await refreshToken(err, handler);
     }
     return handler.next(err);
   }
