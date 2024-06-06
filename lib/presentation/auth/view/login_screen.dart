@@ -1,9 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:superbase_flutter/core/constants/app/string_constants.dart';
 import 'package:superbase_flutter/core/constants/enums/auth_enums.dart';
-import 'package:superbase_flutter/core/constants/enums/language.enum.dart';
 import 'package:superbase_flutter/core/extensions/num_extensions.dart';
 import 'package:superbase_flutter/generated/app_localizations.dart';
 import 'package:superbase_flutter/generated/locales.g.dart';
@@ -14,6 +12,9 @@ import 'package:superbase_flutter/presentation/auth/view/models/social_model.dar
 class LoginScreen extends StatefulWidget {
   static String routeName = 'login_screen';
   static String path = '/login_screen';
+  // final Function? onLocaleChange;
+
+  // const LoginScreen({super.key, this.onLocaleChange});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -173,14 +174,12 @@ class _LoginScreenState extends State<LoginScreen> {
           },
           builder: (BuildContext context, AuthState state) => 0.ph,
         ),
-        Builder(builder: (context) {
-          return GestureDetector(
-            onTap: () => {},
-            child: Text(AppLocalizations.of(context)
-                    ?.translate(LocaleKeys.buttons_sign_in) ??
-                ''),
-          );
-        })
+        GestureDetector(
+          onTap: () => {},
+          child: Text(AppLocalizations.of(context)
+                  ?.translate(LocaleKeys.buttons_sign_in) ??
+              ''),
+        )
       ]),
     ));
   }

@@ -63,10 +63,19 @@ class _StatefulShellRouteAppState extends State<StatefulShellRouteApp> {
   //     StatefulShellRoute.indexedStack(
   Locale _locale = const Locale(LanguageEnum.english, '');
 
+  void _changeLanguage(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
+
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 5),
-        () => _locale = const Locale(LanguageEnum.vietnam, ''));
+    Future.delayed(
+        const Duration(seconds: 5),
+        () => setState(() {
+              _locale = const Locale(LanguageEnum.vietnam, '');
+            }));
     super.initState();
   }
 
